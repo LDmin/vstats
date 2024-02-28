@@ -2,7 +2,7 @@
 
 client_id = "dc8f7872c4479bbf464ac0e092ba80bc"
 name = "vstats"
-application_url = "https://lang-catering-vacancies-character.trycloudflare.com"
+application_url = "https://regulations-output-prospective-biology.trycloudflare.com"
 embedded = true
 
 [build]
@@ -15,9 +15,9 @@ scopes = "read_delivery_customizations,write_delivery_customizations,write_produ
 
 [auth]
 redirect_urls = [
-  "https://lang-catering-vacancies-character.trycloudflare.com/auth/callback",
-  "https://lang-catering-vacancies-character.trycloudflare.com/auth/shopify/callback",
-  "https://lang-catering-vacancies-character.trycloudflare.com/api/auth/callback"
+  "https://regulations-output-prospective-biology.trycloudflare.com/auth/callback",
+  "https://regulations-output-prospective-biology.trycloudflare.com/auth/shopify/callback",
+  "https://regulations-output-prospective-biology.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
