@@ -1977,4 +1977,4 @@ export enum WeightUnit {
 export type RunInputVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RunInput = { __typename?: 'Input', deliveryCustomization: { __typename?: 'DeliveryCustomization', metafield?: { __typename?: 'Metafield', value: string } | null } };
+export type RunInput = { __typename?: 'Input', cart: { __typename?: 'Cart', deliveryGroups: Array<{ __typename?: 'CartDeliveryGroup', deliveryAddress?: { __typename?: 'MailingAddress', provinceCode?: string | null } | null, deliveryOptions: Array<{ __typename?: 'CartDeliveryOption', handle: string, title?: string | null }> }> } };

@@ -39,14 +39,20 @@ function run_default(userfunction) {
 }
 
 // extensions/delivery-customization/src/run.js
-var NO_CHANGES = {
-  operations: []
-};
 function run(input) {
-  const configuration = JSON.parse(
-    input?.deliveryCustomization?.metafield?.value ?? "{}"
-  );
-  return NO_CHANGES;
+  const message = "May be delayed due to weather conditions";
+  let toRename = input.cart.deliveryGroups.filter((group) => group.deliveryAddress?.provinceCode && group.deliveryAddress.provinceCode == "NC").flatMap((group) => group.deliveryOptions).map((option) => (
+    /** @type {Operation} */
+    {
+      rename: {
+        deliveryOptionHandle: option.handle,
+        title: option.title ? `${option.title} - ${message}` : message
+      }
+    }
+  ));
+  return {
+    operations: toRename
+  };
 }
 
 // <stdin>
