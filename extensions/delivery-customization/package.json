@@ -25,6 +25,7 @@
     }
   },
   "devDependencies": {
+    "javy-cli": "^0.2.0",
     "vitest": "^0.29.8"
   },
   "dependencies": {
