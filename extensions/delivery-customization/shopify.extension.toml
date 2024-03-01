@@ -12,9 +12,12 @@ type = "function"
   export = "run"
 
   [extensions.build]
-  command = ""
+  command = "echo 111"
   path = "dist/function.wasm"
 
+
   [extensions.ui.paths]
-  create = "/"
-  details = "/"
+  create = "/app/delivery-customization/:functionId/new"
+  details = "/app/delivery-customization/:functionId/:id"
+
+

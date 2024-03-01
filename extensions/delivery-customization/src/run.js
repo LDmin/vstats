@@ -13,20 +13,18 @@
 * @returns {FunctionRunResult}
 */
 export function run(input) {
+  console.log('run', 111);
   // The message to be added to the delivery option
   const message = "May be delayed due to weather conditions";
 
   let toRename = input.cart.deliveryGroups
-    // Filter for delivery groups with a shipping address containing the affected state or province
-    .filter(group => group.deliveryAddress?.provinceCode &&
-      group.deliveryAddress.provinceCode == "NC")
     // Collect the delivery options from these groups
     .flatMap(group => group.deliveryOptions)
     // Construct a rename operation for each, adding the message to the option title
     .map(option => /** @type {Operation} */({
       rename: {
         deliveryOptionHandle: option.handle,
-        title: option.title ? `${option.title} - ${message}` : message
+        title: message
       }
     }));
 

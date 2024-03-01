@@ -40,13 +40,14 @@ function run_default(userfunction) {
 
 // extensions/delivery-customization/src/run.js
 function run(input) {
+  console.log("run", 111);
   const message = "May be delayed due to weather conditions";
-  let toRename = input.cart.deliveryGroups.filter((group) => group.deliveryAddress?.provinceCode && group.deliveryAddress.provinceCode == "NC").flatMap((group) => group.deliveryOptions).map((option) => (
+  let toRename = input.cart.deliveryGroups.flatMap((group) => group.deliveryOptions).map((option) => (
     /** @type {Operation} */
     {
       rename: {
         deliveryOptionHandle: option.handle,
-        title: option.title ? `${option.title} - ${message}` : message
+        title: message
       }
     }
   ));

@@ -1,5 +1,5 @@
 package local:main;
 
-world index-world {
-  export shopify-function: func(); 
+world shopify-function {
+  export run: func(); 
 }
