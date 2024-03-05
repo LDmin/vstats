@@ -75,37 +75,38 @@ export const action = async ({ request }) => {
 
 export default function Index() {
   const { carrierServices } = useLoaderData();
-  console.log(carrierServices);
-  const rows = [
-    ["Emerald Silk Gown", "$875.00", 124689, 140, "$122,500.00"],
-    ["Mauve Cashmere Scarf", "$230.00", 124533, 83, "$19,090.00"],
-    [
-      "Navy Merino Wool Blazer with khaki chinos and yellow belt",
-      "$445.00",
-      124518,
-      32,
-      "$14,240.00",
-    ],
-  ];
+  const rows = carrierServices.data.map((d) => [
+    d.id,
+    d.name,
+    d.carrier_service_type,
+    d.admin_graphql_api_id,
+    d.callback_url,
+    d.format,
+    d.service_discovery,
+    d.active,
+  ]);
+
   return (
     <Page>
       <DataTable
         columnContentTypes={[
-          "text",
+          "numeric",
           "numeric",
           "numeric",
           "numeric",
           "numeric",
         ]}
         headings={[
-          "Product",
-          "Price",
-          "SKU Number",
-          "Net quantity",
-          "Net sales",
+          "id",
+          "name",
+          "carrier_service_type",
+          "admin_graphql_api_id",
+          "callback_url",
+          "format",
+          "service_discovery",
+          "active",
         ]}
         rows={rows}
-        totals={["", "", "", 255, "$155,830.00"]}
       />
     </Page>
   );
