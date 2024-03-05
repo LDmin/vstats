@@ -7,21 +7,7 @@ import {
   useSubmit,
   Form,
 } from "@remix-run/react";
-import {
-  Page,
-  Layout,
-  Text,
-  Card,
-  Button,
-  BlockStack,
-  Box,
-  ResourceList,
-  FormLayout,
-  Checkbox,
-  TextField,
-  Button,
-  DataTable,
-} from "@shopify/polaris";
+import { Page, FormLayout, TextField, DataTable } from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
