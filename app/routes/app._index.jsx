@@ -5,6 +5,7 @@ import {
   useLoaderData,
   useNavigation,
   useSubmit,
+  Form,
 } from "@remix-run/react";
 import {
   Page,
@@ -31,50 +32,34 @@ export const loader = async ({ request }) => {
 };
 
 export const action = async ({ request }) => {
-  const { admin } = await authenticate.admin(request);
-  const color = ["Red", "Orange", "Yellow", "Green"][
-    Math.floor(Math.random() * 4)
-  ];
-  const response = await admin.graphql(
-    `#graphql
-      mutation populateProduct($input: ProductInput!) {
-        productCreate(input: $input) {
-          product {
-            id
-            title
-            handle
-            status
-            variants(first: 10) {
-              edges {
-                node {
-                  id
-                  price
-                  barcode
-                  createdAt
-                }
-              }
-            }
-          }
-        }
-      }`,
-    {
-      variables: {
-        input: {
-          title: `${color} Snowboard`,
-          variants: [{ price: Math.random() * 100 }],
-        },
-      },
-    },
-  );
-  const responseJson = await response.json();
+  const { admin, session } = await authenticate.admin(request);
+  const formData = await request.formData();
 
+  const name = formData.get("name");
+  const callback_url = formData.get("callback_url");
+
+  const carrier_service = new admin.rest.resources.CarrierService({
+    session: session,
+  });
+  carrier_service.name = name;
+  carrier_service.callback_url = callback_url;
+  carrier_service.service_discovery = true;
+  const carrier_service_rs = await carrier_service.save({
+    update: true,
+  });
   return json({
-    product: responseJson.data?.productCreate?.product,
+    carrier_service: carrier_service_rs,
   });
 };
 
 export default function Index() {
   const { carrierServices } = useLoaderData();
+  const navigation = useNavigation();
+  const [name, setName] = setState("");
+  const [callback_url, setCallback_url] = setState("");
+  const data = useActionData();
+  console.log({ data });
+
   const rows = carrierServices.data.map((d) => [
     d.id,
     d.name,
@@ -86,10 +71,54 @@ export default function Index() {
     d.active,
   ]);
 
+  const isLoading = navigation.state === "submitting";
+
+  const submit = useSubmit();
+
+  const handleSubmit = () => {
+    submit({ name, callback_url }, { method: "post" });
+  };
+
   return (
-    <Page>
+    <Page
+      title="Carrier Service"
+      primaryAction={{
+        content: "Save",
+        loading: isLoading,
+        onAction: handleSubmit,
+      }}
+    >
+      <Form method="post">
+        <FormLayout>
+          <FormLayout.Group>
+            <TextField
+              name="name"
+              type="text"
+              label="name"
+              value={name}
+              onChange={setName}
+              disabled={isLoading}
+              requiredIndicator
+              autoComplete="on"
+            />
+            <TextField
+              name="callback_url"
+              type="text"
+              label="callback_url"
+              value={callback_url}
+              onChange={setCallback_url}
+              disabled={isLoading}
+              requiredIndicator
+              autoComplete="off"
+            />
+          </FormLayout.Group>
+        </FormLayout>
+      </Form>
       <DataTable
         columnContentTypes={[
+          "numeric",
+          "numeric",
+          "numeric",
           "numeric",
           "numeric",
           "numeric",
