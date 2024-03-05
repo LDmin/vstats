@@ -1,4 +1,4 @@
-import { setState } from "react";
+import { useState } from "react";
 import { json } from "@remix-run/node";
 import {
   useActionData,
@@ -55,8 +55,8 @@ export const action = async ({ request }) => {
 export default function Index() {
   const { carrierServices } = useLoaderData();
   const navigation = useNavigation();
-  const [name, setName] = setState("");
-  const [callback_url, setCallback_url] = setState("");
+  const [name, setName] = useState("");
+  const [callback_url, setCallback_url] = useState("");
   const data = useActionData();
   console.log({ data });
 
