@@ -16,7 +16,7 @@ import {
   Box,
   ResourceList,
   Link,
-  InlineStack,
+  DataTable,
 } from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
 
