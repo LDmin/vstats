@@ -22,7 +22,7 @@ export const loader = async ({ request }) => {
     session: session,
   });
 
-  return json({ carrierServices: 111 });
+  return json({ carrierServices });
 };
 
 export const action = async ({ request }) => {
