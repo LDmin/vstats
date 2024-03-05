@@ -18,13 +18,11 @@ import { authenticate } from "../shopify.server";
 export const loader = async ({ request }) => {
   const { admin, session } = await authenticate.admin(request);
 
-  return null
+  // const carrierServices =  await admin.rest.resources.CarrierService.all({
+  //   session: session,
+  // });
 
-  const carrierServices =  await admin.rest.resources.CarrierService.all({
-    session: session,
-  });
-
-  return json({ carrierServices });
+  return json({ carrierServices: { aaa: 111 } });
 };
 
 export const action = async ({ request }) => {
@@ -178,9 +176,9 @@ console.log(carrierServices);
               </BlockStack>
             </Card>
           </Layout.Section>
-          {/* <Layout.Section variant="oneThird">
+          <Layout.Section variant="oneThird">
             { carrierServices }
-          </Layout.Section> */}
+          </Layout.Section>
         </Layout>
       </BlockStack>
     </Page>
