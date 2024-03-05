@@ -18,9 +18,9 @@ import { authenticate } from "../shopify.server";
 export const loader = async ({ request }) => {
   const { admin, session } = await authenticate.admin(request);
 
-  // const carrierServices =  await admin.rest.resources.CarrierService.all({
-  //   session: session,
-  // });
+  const carrierServices =  await admin.rest.resources.CarrierService.all({
+    session: session,
+  });
 
   return json({ carrierServices: 111 });
 };
